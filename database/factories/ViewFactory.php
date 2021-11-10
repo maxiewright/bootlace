@@ -2,18 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Comment;
-use App\Models\User;
+use App\Models\View;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CommentFactory extends Factory
+class ViewFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Comment::class;
+    protected $model = View::class;
 
     /**
      * Define the model's default state.
@@ -23,10 +22,7 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::factory(),
-            'body' => $this->faker->paragraph(),
-            'is_approved' => $this->faker->boolean(75),
-            'parent_id' => null,
+            //
         ];
     }
 }

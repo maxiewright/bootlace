@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Traits\HasComments;
 use App\Traits\HasLikes;
+use App\Traits\HasViews;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,7 +13,7 @@ use Illuminate\Support\Str;
 
 class Article extends Model
 {
-    use HasFactory, HasLikes;
+    use HasFactory, HasLikes, HasComments, HasViews;
 
 
     protected $fillable = [
@@ -19,9 +21,13 @@ class Article extends Model
         'title',
         'slug',
         'body',
-        'author',
+        'user_id',
         'status_id',
         'parent'
+    ];
+
+    protected $casts = [
+        'published_at' => 'datetime',
     ];
 
     protected static function boot()
@@ -37,7 +43,7 @@ class Article extends Model
 
     public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'author');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function status(): BelongsTo
